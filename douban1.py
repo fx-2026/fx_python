@@ -40,9 +40,9 @@ def getdaoban(urls):
     #         for x in j.find_all('img'):
     #             img =x.get('src')
 
-j = tuple(f'https://book.douban.com/top250?start={page * 25}' for page in range(3))#地址
+j = tuple(f'https://book.douban.com/top250?start={page * 25}' for page in range(11))#地址
 
 from time import sleep
 for url in j:
     print(getdaoban(url))
-    sleep(10)         
+    sleep(30)
