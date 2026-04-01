@@ -87,3 +87,63 @@ Story.god_come_go()
 
 #静态方法可以由类直接调用
 #因为不传入self也不传入cls,所以不能使用类的属性和实例的属性
+
+
+
+#限制传入的类型和范围装饰器（整数，且满足18-65）
+print('*'*30+'限制传入的类型和范围装饰器（整数，且满足18-65）'+'*'*30)
+
+class Age(object):
+    def __init__(self,default_age = 18):
+        self.age_range = range(18,66)
+        self.default_age=default_age
+        self.data ={}
+
+    def __get__(self,instance,owner):
+        return self.data.get(instance,self.default_age)
+    
+    def __set__(self,isinstance,value):
+        if value not in self.age_range:
+            raise ValueError('must be in (18-65)')
+        
+        self.data[isinstance]= value
+
+class Student(object):
+    age =Age()
+
+
+if __name__=='__main__':
+    s1 = Student()
+    s1.age =30
+    s1.age =20
+    print(s1.age)
+    #s1.age =100
+
+#固定部分参数
+
+
+#获取当前的状态
+
+@property
+def current_state(self):
+    instance_state ={
+        1:'运行',
+        2:'离线',
+        3:'下线'
+    }
+
+    if (time_diff.seconds)>=300:
+        return instance_state[2]
+
+    if self.state in range(10):
+        return instance_state.get(self.state,'其他')
+    return None
+
+#cloud.vpc.0001.current_state 
+
+#类里面将方法改成属性，这样可以直接输出
+#描述的协议__get__,__set__,__delete__
+#__getattr__,__setattr__,__delattr__,__getattribute__,property,staticmethod,classmethod通过上层协议做的不同的封装
+#property将类里的方法，函数变成属性，传self
+#classmethod将实例的方法变成类的方法，传cls
+#staticmethod将类外面的方法，改成类里面的方法，（）什么都不传
