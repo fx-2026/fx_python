@@ -8,3 +8,6 @@ class Douban2Spider(scrapy.Spider):
 
     def parse(self, response):
         print(response.url)
+
+x =Douban2Spider()
+x.parse

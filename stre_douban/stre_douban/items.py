@@ -6,9 +6,10 @@
 import scrapy
 
 
-class SecondDoubanSpiderItem(scrapy.Item):
+class StreDoubanItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    #定义我们需要的数据结构：
-    title = scrapy.Field()  # 电影标题
-    rating = scrapy.Field() # 电影评分
+    #数据下载格式，需要几个字段
+    title =scrapy.Field()
+    link = scrapy.Field()
+    content = scrapy.Field()
