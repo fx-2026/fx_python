@@ -40,9 +40,28 @@ def getdaoban(urls):
     #         for x in j.find_all('img'):
     #             img =x.get('src')
 
-j = tuple(f'https://book.douban.com/top250?start={page * 25}' for page in range(11))#地址
+# j = tuple(f'https://book.douban.com/top250?start={page * 25}' for page in range(11))#地址
 
-from time import sleep
-for url in j:
-    print(getdaoban(url))
-    sleep(30)
+# from time import sleep
+# for url in j:
+#     print(getdaoban(url))
+#     sleep(30)
+
+
+
+USER_AGENTS_list = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1',
+]
+import random
+USER_AGENTS = random.choice(USER_AGENTS_list)
+headers={}
+headers['user-agent'] =USER_AGENTS
+url='https://book.douban.com/top250?start=25'
+response = requests.get(url,headers=headers)
+bs_info = bs(response.text, 'html.parser')
+result =bs_info.find_all('div',attrs={'class':"pl2"})[0].find_all('a')
+
+print(result.get('title'))

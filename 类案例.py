@@ -69,6 +69,42 @@ if __name__ == '__main__':
     print(type(s).__dict__['get_apple_to_eve'].__get__(s,type(s)) == s.get_apple_to_eve)#实例的属性和类的属性一样
     #s是对象，type(s) 是取得s的类，__dict__['get_apple_to_eve']，取得类的默认属性和方法，通过get协议在进行操作取得实例
 
+#网络上的案例
+class Human:
+    # 这是一个“类属性”，相当于工厂的默认设置
+    default_name = "无名氏"
+
+    def __init__(self, name):
+        self.name = name
+
+    # --- 这是一个普通方法 ---
+    def say_hello(self):
+        # 只有具体的人才能打招呼
+        print(f"你好，我是 {self.name}")
+
+    # --- 这是一个类方法 ---
+    @classmethod
+    def change_default_name(cls, new_name):
+        # cls 代表的是 Human 这个类（工厂），而不是某个人
+        cls.default_name = new_name
+        print(f"工厂设置已修改！现在的默认名字是：{cls.default_name}")
+
+# ================= 运行开始 =================
+
+# 1. 使用类方法（直接找工厂改设置）
+# 注意：不需要造人，直接通过类名调用
+Human.change_default_name("张三") 
+
+# 2. 造两个人
+p1 = Human("小明")
+p2 = Human("小红")
+
+# 3. 看看效果
+# 虽然 p1 和 p2 的名字是自己定的，但如果他们没名字时，
+# 就会用到工厂刚才改过的默认设置。
+print(f"工厂现在的默认设置是：{Human.default_name}") 
+
+
 
 #静态的方法
 print('*'*30+'静态的方法'+'*'*30)

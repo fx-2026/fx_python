@@ -16,9 +16,14 @@ class StreDoubanPipeline:
         title = item['title']
         link = item['link']
         content =item['content']
+        # output = f'{title}\t{link}\n\n'
         output = f'{title}\t{link}\t{content}\n\n'
         self.article.write(output)
-        self.article.close()
         return item
     # def process_item(self, item, spider):
     #     return item
+    # 3. 爬虫结束时，关闭文件（只执行一次）
+    def close_spider(self, spider):
+        self.article.close()
+        print(f"--- 爬虫结束，文件已关闭 ---")
+
